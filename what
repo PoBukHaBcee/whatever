@@ -1,0 +1,140 @@
+#define ct std::cout 
+#define cn std::cin
+#include <iostream>
+#include <vector>
+#include <fstream>
+
+class song
+{
+public:
+	std::string name, aut, text;
+	int day, month, year;
+	song()
+	{
+		name = "0";
+		aut = "0";
+		text = "0";
+		day = 0;
+		month = 0;
+		year = 0;
+	}
+	void vvod()
+	{
+		ct << "Name song: ";
+		cn >> name;
+		ct << "Author: ";
+		cn >> aut;
+		ct << "Text song: ";
+		cn >> text;
+		ct << "Data: ";
+		cn >> day >> month >> year;
+	}
+	void del()
+	{
+		text = " ";
+	}
+	void print()
+	{
+		ct << "Name: " << name << "\nAuthor: " << aut << "\ntext: " << text << "\nData: " << day << "." << month << "." << year;
+	}
+};
+
+int main()
+{
+	std::vector<song> songs;
+	std::ifstream lok("whatever.txt");
+	std::string end;
+	/*do
+	{
+		
+		ct << "For end enter ~ ";
+	}
+	while (end != "~");*/
+	int yes=1, chose;
+	while (yes != 0)
+	{
+		ct << "1.Add song\n2.delete text\n3.edit\n4.print\n5.search";
+		cn >> chose;
+		switch (chose)
+		{
+		case 1:
+		{
+			songs.push_back(song());
+			songs.at(songs.size()-1).vvod();
+			break;
+		}
+		case 2:
+		{
+			ct << "Which song lyrics do you want to delete?";
+			int chose;
+			for (int i = 0; i < songs.size(); i++)
+			{
+				std::cout << i << ". ";
+				songs.at(i).print();
+				ct << std::endl;
+			}
+			cn >> chose;
+			songs.at(chose).del();
+			break;
+		}
+		case 3:
+		{
+			int chose;
+			ct << "Which song do you want edit";
+			for (int i = 0; i < songs.size(); i++)
+			{
+				std::cout << i << ". ";
+				songs.at(i).print();
+				ct << std::endl;
+			}
+			cn >> chose;
+			songs.at(chose).vvod();
+			break;
+		}
+		case 4:
+		{
+			for (int i = 0; i < songs.size(); i++)
+			{
+				std::cout << i << ". ";
+				songs.at(i).print();
+				ct << std::endl;
+			}
+			break;
+		}
+		case 5:
+		{
+			std::string search;
+			int chose;
+			ct << "How we search?\n 1.author 2.word";
+			if (chose == 1)
+			{
+				ct << "Enter name author: ";
+				cn >> search;
+				for (int i = 0; i < songs.size(); i++)
+				{
+					if (songs.at(i).aut == search)
+					{
+						songs.at(i).print();
+					}
+				}
+			}
+/*			if (chose == 2)
+			{
+				ct << "Enter word, what have in text song: ";
+				cn >> search;
+				for (int i = 0; i < songs.size(); i++)
+				{
+	
+				}
+			}
+	*/		break;
+		}
+		default:
+			break;
+		}
+		ct << "\n1.restart 0.exit ";
+		cn >> yes;
+		system("cls");
+	}
+	return 0;
+}
