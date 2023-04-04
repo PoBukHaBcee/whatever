@@ -1,0 +1,192 @@
+#define ct std::cout 
+#define cn std::cin
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+class rok
+{
+public:
+	std::string name, opic;
+	int priot, days, month, year, days1, month1, year1;
+	void vvod()
+	{
+		ct << "Name: ";
+		cn >> name;
+		ct << "Prioritet: ";
+		cn >> priot;
+		ct << "OpicaHNe: ";
+		cn >> opic; 
+		ct << "Data: ";
+		cn >> days >> month >> year;
+		ct << "Di: ";
+		cn >> days1 >> month1 >> year1;
+	}
+	rok()
+	{
+		name="0";
+		priot=0;
+		opic="0";
+		days =0;
+		month = 0;
+		year = 0;
+		days1= 0;
+		month1 = 0;
+		year1 = 0;
+	}
+	void print()
+	{
+		ct << "Name: " << name << "\nPrioritet: " << priot << "\nOpic: " << opic << "\nDate: " << days << "."<< month <<"."<< year << "\ndi: " << days1 << "." << month1 << "." << year1;
+	}
+	void edit()
+	{
+		ct << "Name";
+		cn >> name;
+		ct << "Prioritet: ";
+		cn >> priot;
+		ct << "OpicaHNe: ";
+		cn >> opic;
+		ct << "Data: ";
+		cn >> days >> month >> year;
+		ct << "Di: ";
+		cn >> days1 >> month1 >> year1;
+	}
+};
+
+
+int main()
+{
+	std::vector<rok> lol;
+	int chose, yes=1;
+	while (yes != 0)
+	{
+		ct << "1.+1\n2.Print\n3.delete\n4.edit\n5.search\n6.sort";
+		cn >> chose;
+		switch (chose)
+		{
+		case 1:
+		{
+			int size;
+			lol.push_back(rok());
+			lol.at(lol.size() - 1).vvod();
+			break;
+		}
+		case 2:
+		{
+			for (int i = 0; i < lol.size(); i++)
+			{
+				lol.at(i).print();
+			}
+			break;
+		}
+		case 3:
+		{
+			int chose;
+			cn >> chose;
+			lol.erase(lol.begin() + chose);
+			break;
+		}
+		case 4:
+		{
+			int chose;
+			for (int i = 0; i < lol.size(); i++)
+			{
+				lol.at(i).print();
+				ct << std::endl;
+			}
+			cn >> chose;
+			lol.at(chose).vvod();
+			ct << std::endl;
+			break;
+		}
+		case 5:
+		{
+			int chose, day, month, year;
+			std::string choose;
+			cn >> chose;
+			switch (chose)
+			{
+			case 1:
+			{
+				cn >> choose;
+				for (int i = 0; i < lol.size(); i++)
+				{
+					if (choose == lol.at(i).name)
+					{
+						lol.at(i).print();
+					}
+				}
+				break;
+			}
+			case 2:
+			{
+				cn >> choose;
+				for (int i = 0; i < lol.size(); i++)
+				{
+					if (choose == lol.at(i).opic)
+					{
+						lol.at(i).print();
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				cn >> day >> month >> year;
+				for (int i = 0; i < lol.size(); i++)
+				{
+					if (day == lol.at(i).days || month == lol.at(i).month || year == lol.at(i).year)
+					{
+						lol.at(i).print();
+					}
+				}
+				break;
+			}
+			case 4:
+			{
+				cn >> day >> month >> year;
+				for (int i = 0; i < lol.size(); i++)
+				{
+					if (day == lol.at(i).days1 || month == lol.at(i).month1 || year == lol.at(i).year1)
+					{
+						lol.at(i).print();
+					}
+				}
+				break;
+			}
+			default:
+				break;
+			}
+			break;
+		}
+		case 6:
+		{
+			int chose;
+			for (int i = 0; i < lol.size(); i++)
+			{
+				for (int j = 0; j < lol.size()-1; j++)
+				{
+					if (lol.at(i).year > lol.at(j).year)
+					{
+						rok lok, lop;
+						lok = lol.at(i);
+						lop = lol.at(j);
+						std::swap(lol.at(i), lol.at(j));
+					}
+				}
+			}
+			for (int i = 0; i < lol.size(); i++)
+			{
+				lol.at(i).print();
+				ct << std::endl;
+			}
+			break;
+		}
+		default:
+			break;
+		}
+		cn >> yes;
+		system("cls");
+	}
+	return 0;
+}
